@@ -3,13 +3,15 @@ using RBAC.Core.Entities;
 
 namespace RBAC.Infrastructure.Data
 {
-    public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<PermissionEntity> Permissions { get; set; }
         public DbSet<UserRoleEntity> UserRoles { get; set; }
         public DbSet<RolePermissionEntity> RolePermissions { get; set; }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,4 +51,5 @@ namespace RBAC.Infrastructure.Data
                 .HasIndex(rp => new { rp.RoleId, rp.PermissionId })
                 .IsUnique();
         }
+    }
 }

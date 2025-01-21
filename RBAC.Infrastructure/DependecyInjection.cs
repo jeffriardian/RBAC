@@ -10,7 +10,7 @@ namespace RBAC.Infrastructure
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer("connection string");
+                options.UseSqlServer("Server=JE\\SQLEXPRESS;Database=rbac;User Id=root;Password=123321123;TrustServerCertificate=True;");
             });
 
             return services;
