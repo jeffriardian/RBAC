@@ -1,14 +1,16 @@
-﻿using RBAC.Core.Entities;
+﻿using RBAC.Core.DTO.Role;
+using RBAC.Core.DTO.User;
+using RBAC.Core.Entities;
+using RBAC.Core.ViewModel;
 
 namespace RBAC.Core.Interfaces
 {
     public interface IUserRepository
     {
-        Task<UserEntity> GetByIdAsync(Guid id);
-        Task<UserEntity> GetByUsernameAsync(string username);
-        Task<List<UserEntity>> GetAllAsync();
-        Task<UserEntity> AddAsync(UserEntity user);
-        Task<UserEntity> UpdateAsync(UserEntity user);
+        Task<ResponseViewModel<UserEntity>> GetByIdAsync(Guid id);
+        Task<ResponseViewModel<UserEntity>> GetAllAsync();
+        Task<ResponseViewModel<UserDto>> AddAsync(CreateUserDto user);
+        Task<ResponseViewModel<UserDto>> UpdateAsync(Guid UserId, UpdateUserDto user);
         Task<bool> DeleteAsync(Guid id);
     }
 }

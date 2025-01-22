@@ -25,6 +25,8 @@ namespace RBAC.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            // Register password hasher
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             return services;
         }

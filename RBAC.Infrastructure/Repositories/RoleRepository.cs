@@ -216,7 +216,7 @@ namespace RBAC.Infrastructure.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var role = await _context.Roles.Include(p => p.RolePermissions).ThenInclude(rp => rp.Permission).FirstOrDefaultAsync(p => p.Id == id); ;
+            var role = await _context.Roles.Include(p => p.RolePermissions).ThenInclude(rp => rp.Permission).FirstOrDefaultAsync(p => p.Id == id);
             if (role != null)
             {
                 _context.Roles.Remove(role);
