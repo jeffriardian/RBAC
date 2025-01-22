@@ -152,7 +152,11 @@ namespace RBAC.Infrastructure.Repositories
 
                 var userUpdate = await _context.Users.FindAsync(UserId);
 
-                // Add new RolePermissions
+                //Remove Existing User Role
+                var existingUserRoles = _context.UserRoles.Where(rp => rp.UserId == users.Id);
+                _context.UserRoles.RemoveRange(existingUserRoles);
+
+                // Add new User Role
                 var userRole = new UserRoleEntity
                 {
                     Id = Guid.NewGuid(),
