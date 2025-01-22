@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RBAC.Application.Commands.Permission;
 using RBAC.Application.Queries.Permission;
 using RBAC.Core.DTO.Permission;
+using RBAC.Core.JWT;
 
 namespace RBAC.API.Controllers
 {
@@ -18,6 +19,7 @@ namespace RBAC.API.Controllers
         }
 
         [HttpGet("permissions")]
+        [AuthorizeRolePermission(roles: new[] { "Admin" })]
         public async Task<IActionResult> GetAllPermissionsAsync()
         {
             var result = await sender.Send(new GetAllPermissionsQuery());
