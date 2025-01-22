@@ -1,13 +1,11 @@
-﻿namespace RBAC.Core.Entities
+﻿namespace RBAC.Core.DTO
 {
-    public class PermissionEntity
+    public class PermissionDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
-
-        public ICollection<RolePermissionEntity> RolePermissions { get; set; } = new List<RolePermissionEntity>();
     }
 }

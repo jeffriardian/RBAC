@@ -7,7 +7,7 @@
         public Guid RoleId { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public UserEntity User { get; set; }
-        public RoleEntity Role { get; set; }
+        public UserEntity User { get; set; } = null!;
+        public RoleEntity Role { get; set; } = null!;
     }
 }

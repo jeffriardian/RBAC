@@ -5,11 +5,11 @@ namespace RBAC.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<UserEntity> Users { get; set; }
-        public DbSet<RoleEntity> Roles { get; set; }
-        public DbSet<PermissionEntity> Permissions { get; set; }
-        public DbSet<UserRoleEntity> UserRoles { get; set; }
-        public DbSet<RolePermissionEntity> RolePermissions { get; set; }
+        public DbSet<UserEntity> Users { get; set; } = null!;
+        public DbSet<RoleEntity> Roles { get; set; } = null!;
+        public DbSet<PermissionEntity> Permissions { get; set; } = null!;
+        public DbSet<UserRoleEntity> UserRoles { get; set; } = null!;
+        public DbSet<RolePermissionEntity> RolePermissions { get; set; } = null!;
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

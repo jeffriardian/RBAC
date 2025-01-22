@@ -35,26 +35,32 @@ namespace RBAC.Infrastructure.Repositories
                                        .ToListAsync();
         }
 
-        public async Task AddAsync(UserEntity user)
+        public async Task<UserEntity> AddAsync(UserEntity user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+
+            return user;
         }
 
-        public async Task UpdateAsync(UserEntity user)
+        public async Task<UserEntity> UpdateAsync(UserEntity user)
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
+
+            return user;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var user = await GetByIdAsync(id);
             if (user != null)
             {
                 _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync() > 0;
             }
+
+            return false;
         }
     }
 }
