@@ -1,4 +1,6 @@
-﻿namespace RBAC.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace RBAC.Core.Entities
 {
     public class UserEntity
     {
@@ -10,6 +12,7 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
 
+        [JsonIgnore]
         public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
     }
 }

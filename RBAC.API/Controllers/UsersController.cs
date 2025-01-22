@@ -8,15 +8,8 @@ namespace RBAC.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController(ISender sender) : ControllerBase
     {
-        private readonly ISender sender;
-
-        public UsersController(ISender sender)
-        {
-            sender = sender;
-        }
-
         [HttpPost("users")]
         public async Task<IActionResult> AddUserAsync([FromBody] CreateUserDto user)
         {
