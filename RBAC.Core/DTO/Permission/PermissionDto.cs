@@ -1,4 +1,4 @@
-﻿namespace RBAC.Core.DTO
+﻿namespace RBAC.Core.DTO.Permission
 {
     public class PermissionDto
     {

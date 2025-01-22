@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RBAC.Application.Events;
-using RBAC.Core.DTO;
+using RBAC.Core.DTO.Permission;
 using RBAC.Core.Interfaces;
 using RBAC.Core.ViewModel;
 

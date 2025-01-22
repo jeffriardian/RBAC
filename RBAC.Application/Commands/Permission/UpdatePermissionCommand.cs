@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using RBAC.Core.DTO;
+using RBAC.Core.DTO.Permission;
 using RBAC.Core.Interfaces;
 using RBAC.Core.ViewModel;
 

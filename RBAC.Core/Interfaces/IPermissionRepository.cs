@@ -1,4 +1,4 @@
-﻿using RBAC.Core.DTO;
+﻿using RBAC.Core.DTO.Permission;
 using RBAC.Core.Entities;
 using RBAC.Core.ViewModel;
 

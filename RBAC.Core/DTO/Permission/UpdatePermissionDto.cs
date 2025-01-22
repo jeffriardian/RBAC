@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RBAC.Core.DTO
+namespace RBAC.Core.DTO.Permission
 {
-    public class CreatePermissionDto
+    public class UpdatePermissionDto
     {
         [Required]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 100 characters.")]

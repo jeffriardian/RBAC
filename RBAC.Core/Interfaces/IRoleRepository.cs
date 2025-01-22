@@ -1,14 +1,15 @@
-﻿using RBAC.Core.Entities;
+﻿using RBAC.Core.DTO.Role;
+using RBAC.Core.Entities;
+using RBAC.Core.ViewModel;
 
 namespace RBAC.Core.Interfaces
 {
     public interface IRoleRepository
     {
-        Task<RoleEntity> GetByIdAsync(Guid id);
-        Task<RoleEntity> GetByNameAsync(string name);
-        Task<List<RoleEntity>> GetAllAsync();
-        Task AddAsync(RoleEntity role);
-        Task UpdateAsync(RoleEntity role);
-        Task DeleteAsync(Guid id);
+        Task<ResponseViewModel<RoleEntity>> GetByIdAsync(Guid id);
+        Task<ResponseViewModel<RoleEntity>> GetAllAsync();
+        Task<ResponseViewModel<RoleDto>> AddAsync(CreateRoleDto role);
+        Task<ResponseViewModel<RoleDto>> UpdateAsync(Guid RoleId, UpdateRoleDto role);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

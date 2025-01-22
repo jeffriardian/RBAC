@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RBAC.Core.DTO.Permission;
 
-namespace RBAC.Core.DTO
+namespace RBAC.Core.DTO.Role
 {
-    public class UpdatePermissionDto
+    public class UpdateRoleDto
     {
         [Required]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 100 characters.")]
@@ -10,5 +11,6 @@ namespace RBAC.Core.DTO
 
         [StringLength(255, ErrorMessage = "Description cannot exceed 255 characters.")]
         public string? Description { get; set; }
+        public ICollection<PermissionDto> PermissionDtos { get; set; } = new List<PermissionDto>();
     }
 }

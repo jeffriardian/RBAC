@@ -1,10 +1,8 @@
-﻿using System.Security;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RBAC.Application.Commands.Permission;
 using RBAC.Application.Queries.Permission;
-using RBAC.Core.DTO;
-using RBAC.Core.Entities;
+using RBAC.Core.DTO.Permission;
 
 namespace RBAC.API.Controllers
 {
