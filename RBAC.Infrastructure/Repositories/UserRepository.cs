@@ -1,6 +1,9 @@
 ﻿using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
-using RBAC.Core.DTO.Permission;
+using Microsoft.IdentityModel.Tokens;
 using RBAC.Core.DTO.Role;
 using RBAC.Core.DTO.User;
 using RBAC.Core.Entities;
@@ -211,6 +214,77 @@ namespace RBAC.Infrastructure.Repositories
             }
 
             return false;
+        }
+        public async Task<List<string>> GetUserRolesAsync(Guid userId)
+        {
+            return await _context.UserRoles
+                .Where(ur => ur.UserId == userId)
+                .Select(ur => ur.Role.Name)
+                .ToListAsync();
+        }
+
+
+        public async Task<ResponseViewModel<UserLoginDto>> LoginAsync(LoginUserDto request)
+        {
+            ResponseViewModel<UserLoginDto> result = new ResponseViewModel<UserLoginDto>();
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+                if (user == null || (_passwordHasher.VerifyPassword(user.PasswordHash, request.PasswordHash) ==  false))
+                {
+                    result.StatusCode = 500;
+                    result.Message = "Invalid credentials";
+                    return result;
+                }
+
+                List<UserLoginDto> listData = new List<UserLoginDto>();
+                var roles = await GetUserRolesAsync(user.Id);
+                var token = GenerateJwtToken(user, roles);
+
+                var UserLoginDto = new UserLoginDto();
+                UserLoginDto.Id = user.Id;
+                UserLoginDto.Username = user.Username;
+                UserLoginDto.Email = user.Email;
+                UserLoginDto.token = token;
+
+                listData.Add(UserLoginDto);
+
+                result.Data = listData;
+                result.StatusCode = 200;
+                result.Message = "OK";
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = 500;
+                result.Message = ex.Message;
+            }
+
+            return result;
+        }
+        public string GenerateJwtToken(UserEntity user, List<string> roles)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var secretKey = Encoding.ASCII.GetBytes("your-secure-key-with-sufficient-length");
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("UserId", user.Id.ToString())
+            };
+
+            // Tambahkan klaim role
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

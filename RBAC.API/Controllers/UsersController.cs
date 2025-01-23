@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RBAC.Application.Commands.User;
 using RBAC.Application.Queries.User;
@@ -18,6 +19,7 @@ namespace RBAC.API.Controllers
         }
 
         [HttpGet("users")]
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> GetAllUsersAsync()
         {
             var result = await sender.Send(new GetAllUsersQuery());
@@ -48,6 +50,13 @@ namespace RBAC.API.Controllers
         public async Task<IActionResult> DeleteUserAsync([FromRoute] Guid userId)
         {
             var result = await sender.Send(new DeleteUserCommand(userId));
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDto user)
+        {
+            var result = await sender.Send(new LoginUserCommand(user));
             return Ok(result);
         }
     }

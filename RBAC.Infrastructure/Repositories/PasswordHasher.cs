@@ -14,7 +14,8 @@ namespace RBAC.Infrastructure.Repositories
         public bool VerifyPassword(string hashedPassword, string password)
         {
             // Verify password (compare hash)
-            return hashedPassword == Convert.ToBase64String(Encoding.UTF8.GetBytes(password)); // Simplified for demo
+            var result = hashedPassword == Convert.ToBase64String(Encoding.UTF8.GetBytes(password)); // Simplified for demo
+            return result;
         }
     }
 }

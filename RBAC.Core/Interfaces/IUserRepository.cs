@@ -12,5 +12,7 @@ namespace RBAC.Core.Interfaces
         Task<ResponseViewModel<UserDto>> AddAsync(CreateUserDto user);
         Task<ResponseViewModel<UserDto>> UpdateAsync(Guid UserId, UpdateUserDto user);
         Task<bool> DeleteAsync(Guid id);
+        Task<List<string>> GetUserRolesAsync(Guid userId);
+        Task<ResponseViewModel<UserLoginDto>> LoginAsync(LoginUserDto request);
     }
 }
